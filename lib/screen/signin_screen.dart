@@ -199,7 +199,12 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, SignUpScreen.id);
+                      showModalBottomSheet(
+                          backgroundColor: Color(0x00000000),
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) =>
+                              SingleChildScrollView(child: SignUpScreen()));
                     },
                     child: Text(
                       "Register",
