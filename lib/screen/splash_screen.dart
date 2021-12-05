@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_skill_hunter/screen/signin_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static final String id = "splash screen router";
@@ -16,11 +17,23 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(
-              height: 50,
-              child: OutlinedButton(
-                onPressed: () {},
-                child: Text("Sign Up/Sign In"),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.shortestSide,
+                height: 35,
+                child: OutlinedButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.cyan)),
+                  onPressed: () {
+                    Navigator.pushNamed(context, SignInScreen.id);
+                  },
+                  child: Text(
+                    "Sign Up/Sign In",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ),
           ],
