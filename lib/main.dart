@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_skill_hunter/screen/signin_screen.dart';
+import 'package:project_skill_hunter/screen/signup_screen.dart';
 import 'package:project_skill_hunter/screen/splash_screen.dart';
 
 void main() {
@@ -13,6 +14,7 @@ class SkillHunter extends StatelessWidget {
       routes: {
         SplashScreen.id: (context) => SplashScreen(),
         SignInScreen.id: (context) => SignInScreen(),
+        SignUpScreen.id: (context) => SignUpScreen(),
       },
       initialRoute: SplashScreen.id,
     );
