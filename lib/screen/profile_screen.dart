@@ -46,6 +46,27 @@ class ProfileScreen extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
+                Container(
+                  child: Column(
+                    children: [
+                      Card(
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.logout,
+                          ),
+                          title: Text("Sign Out"),
+                        ),
+                      ),
+                      Card(
+                        child: ListTile(
+                          onTap: () {},
+                          leading: Icon(Icons.settings),
+                          title: Text("Settings"),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16.0, top: 8.0),
                   child: Text(
