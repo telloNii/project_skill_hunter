@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:project_skill_hunter/screen/home_screen.dart';
 import 'package:project_skill_hunter/screen/signup_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -100,7 +101,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                     backgroundColor:
                                         MaterialStateProperty.all(Colors.black),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, HomeScreen.id);
+                                  },
                                   child: Text(
                                     "Log In",
                                     style: TextStyle(color: Colors.white),
