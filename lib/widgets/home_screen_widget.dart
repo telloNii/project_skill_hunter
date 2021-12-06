@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HomeScreenWidget extends StatelessWidget {
-  const HomeScreenWidget({
-    Key? key,
-  }) : super(key: key);
+  HomeScreenWidget(
+      {required this.image, required this.fullName, required this.email});
+  late final String image, fullName, email;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class HomeScreenWidget extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage("images/background_image.jpg"),
+                backgroundImage: AssetImage(image),
               ),
             ),
             Padding(
@@ -31,10 +31,10 @@ class HomeScreenWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Todd Nelson",
+                    fullName,
                     style: TextStyle(fontSize: 20),
                   ),
-                  Text("tello_nii@outlook.com"),
+                  Text(email),
                 ],
               ),
             ),

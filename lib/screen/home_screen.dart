@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_skill_hunter/screen/profile_screen.dart';
+import 'package:project_skill_hunter/screen/search_screen.dart';
 import 'package:project_skill_hunter/widgets/home_screen_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,8 +19,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    List displayScreeen = [
+      Container(
+        height: MediaQuery.of(context).size.longestSide,
+        child: ListView(
+          children: [
+            HomeScreenWidget(
+              image: 'images/background_image.jpg',
+              fullName: 'Todd Nelson',
+              email: 'tello_nii@outlook.com',
+            ),
+          ],
+        ),
+      ),
+      SearchScreen(),
+      ProfileScreen()
+    ];
+    List displayAppBar = [
+      AppBar(
         elevation: 2,
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -28,21 +46,20 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.longestSide,
-        child: ListView(
-          children: [
-            HomeScreenWidget(),
-          ],
-        ),
-      ),
+      null,
+      null
+    ];
+    return Scaffold(
+      appBar: displayAppBar[bottomNavBarIndex],
+      body: displayScreeen[bottomNavBarIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: newIndex,
         currentIndex: bottomNavBarIndex,
+        selectedItemColor: Colors.brown,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.search_sharp), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.person_sharp), label: ""),
         ],
       ),
     );
