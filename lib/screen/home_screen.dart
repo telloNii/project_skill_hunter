@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List displayAppBar = [
       AppBar(
         elevation: 2,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.brown,
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
