@@ -1,8 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_skill_hunter/screen/splash_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
-
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,13 +29,13 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Todd Nelson",
+                      _firebaseAuth.currentUser!.displayName.toString(),
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                           fontFamily: "SourceSansPro"),
                     ),
-                    Text("tello_nii@outlook.com"),
+                    Text(_firebaseAuth.currentUser!.email.toString()),
                   ],
                 ),
               ),
@@ -51,6 +52,10 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Card(
                         child: ListTile(
+                          onTap: () async {
+                            await _firebaseAuth.signOut();
+                            Navigator.pushNamed(context, SplashScreen.id);
+                          },
                           leading: Icon(
                             Icons.logout,
                           ),
