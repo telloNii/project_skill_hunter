@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "867917331565",
+    "project_id": "project-niichalex",
+    "storage_bucket": "project-niichalex.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867917331565:android:9c670f1b01244815e49364",
+        "android_client_info": {
+          "package_name": "com.thebabyboy.project_skill_hunter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867917331565-dlbup9jpchk4erpu17mqok4vraakm5pc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGL4-PltUt8TLkn9WEz2hy9Ksrazr9ivU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867917331565-dlbup9jpchk4erpu17mqok4vraakm5pc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

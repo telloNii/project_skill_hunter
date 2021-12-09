@@ -1,16 +1,42 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:project_skill_hunter/screen/forgot_password.dart';
 import 'package:project_skill_hunter/screen/home_screen.dart';
 import 'package:project_skill_hunter/screen/signup_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   static final String id = "sign in screen route";
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
+
   bool obscureText = true;
+  late String userEmail;
+  late String userPassword;
+  bool resetError = false;
+  double _onErrorBoxResize() {
+    if (resetError == false) {
+      return 50;
+    } else {
+      return 70;
+    }
+  }
+
+  String? errorText;
+
+  @override
+  void dispose() {
+    _emailTextController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +69,17 @@ class _SignInScreenState extends State<SignInScreen> {
                             child: SizedBox(
                               height: 50,
                               child: TextFormField(
+                                controller: _emailTextController,
+                                onChanged: (String email) {
+                                  setState(() {
+                                    userEmail = email;
+                                  });
+                                },
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  labelText: "Email",
                                   hintText: "Please enter your Email",
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -60,12 +95,24 @@ class _SignInScreenState extends State<SignInScreen> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SizedBox(
-                              height: 50,
+                              height: _onErrorBoxResize(),
                               child: TextFormField(
+                                controller: _passwordTextController,
+                                onChanged: (String password) {
+                                  setState(() {
+                                    userPassword = password;
+                                  });
+                                },
                                 obscureText: obscureText,
                                 keyboardType: TextInputType.visiblePassword,
                                 decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  labelText: "Password",
                                   hintText: "Please enter your Password",
+                                  errorText: errorText,
+                                  labelStyle:
+                                      TextStyle(color: Colors.lightBlue),
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       if (obscureText == true) {
@@ -83,6 +130,14 @@ class _SignInScreenState extends State<SignInScreen> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide(color: Colors.black)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                          BorderSide(color: Colors.black)),
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide:
@@ -101,8 +156,30 @@ class _SignInScreenState extends State<SignInScreen> {
                                     backgroundColor:
                                         MaterialStateProperty.all(Colors.black),
                                   ),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, HomeScreen.id);
+                                  onPressed: () async {
+                                    try {
+                                      if (_emailTextController
+                                              .value.text.isNotEmpty &&
+                                          userEmail.contains("@")) {
+                                        await _auth.signInWithEmailAndPassword(
+                                            email: userEmail,
+                                            password: userPassword);
+                                        if (_auth.currentUser != null) {
+                                          Navigator.pushNamed(
+                                              context, HomeScreen.id);
+                                        } else {
+                                          setState(() {});
+                                        }
+                                      }
+                                    } catch (errorIdentifier) {
+                                      setState(() {
+                                        resetError = true;
+                                        errorText =
+                                            "incorrect email or password";
+                                        _emailTextController.clear();
+                                        _passwordTextController.clear();
+                                      });
+                                    }
                                   },
                                   child: Text(
                                     "Log In",
@@ -203,11 +280,13 @@ class _SignInScreenState extends State<SignInScreen> {
                   GestureDetector(
                     onTap: () {
                       showModalBottomSheet(
-                          backgroundColor: Color(0x00000000),
-                          context: context,
-                          isScrollControlled: true,
-                          builder: (context) =>
-                              SingleChildScrollView(child: SignUpScreen()));
+                        backgroundColor: Color(0x00000000),
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => SingleChildScrollView(
+                          child: SignUpScreen(),
+                        ),
+                      );
                     },
                     child: Text(
                       "Register",
@@ -215,7 +294,16 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      showModalBottomSheet(
+                        backgroundColor: Color(0x00000000),
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (context) => SingleChildScrollView(
+                          child: ForgotPassword(),
+                        ),
+                      );
+                    },
                     child: Text(
                       "Forgot password?",
                       style: TextStyle(fontSize: 18.0),
