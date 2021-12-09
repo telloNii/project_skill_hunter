@@ -3,8 +3,11 @@ import 'package:project_skill_hunter/screen/home_screen.dart';
 import 'package:project_skill_hunter/screen/signin_screen.dart';
 import 'package:project_skill_hunter/screen/signup_screen.dart';
 import 'package:project_skill_hunter/screen/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(SkillHunter());
 }
 
