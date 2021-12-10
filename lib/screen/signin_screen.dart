@@ -80,6 +80,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   labelText: "Email",
+                                  labelStyle:
+                                      TextStyle(color: Colors.lightBlue),
                                   hintText: "Please enter your Email",
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),

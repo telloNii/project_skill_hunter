@@ -69,6 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                           hintText: "Please enter your Username",
                           labelText: "UserName",
+                          labelStyle: TextStyle(color: Colors.lightBlue),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -95,6 +96,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         decoration: InputDecoration(
                           hintText: "Please enter your Email",
                           labelText: "Email",
+                          labelStyle: TextStyle(color: Colors.lightBlue),
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -123,6 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           decoration: InputDecoration(
                             hintText: "Please enter your Password",
                             labelText: "Password",
+                            labelStyle: TextStyle(color: Colors.lightBlue),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             suffixIcon: IconButton(
                               onPressed: () {
