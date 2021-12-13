@@ -29,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _firebaseAuth.currentUser!.displayName.toString(),
+                      _firebaseAuth.currentUser!.displayName!,
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,

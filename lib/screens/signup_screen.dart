@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +11,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   bool obscureText = true;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  late String? userEmail;
-  late String? userPassword;
-  late String? userName;
+
   final _usernameTextControler = TextEditingController();
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();
@@ -61,11 +60,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 50,
                       child: TextFormField(
                         controller: _usernameTextControler,
-                        onChanged: (String username) {
-                          setState(() {
-                            userName = username;
-                          });
-                        },
                         decoration: InputDecoration(
                           hintText: "Please enter your Username",
                           labelText: "UserName",
@@ -87,11 +81,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 50,
                       child: TextFormField(
                         controller: _emailTextController,
-                        onChanged: (String email) {
-                          setState(() {
-                            userEmail = email;
-                          });
-                        },
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           hintText: "Please enter your Email",
@@ -115,11 +104,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: Visibility(
                         child: TextFormField(
                           controller: _passwordTextController,
-                          onChanged: (String password) {
-                            setState(() {
-                              userPassword = password;
-                            });
-                          },
                           obscureText: obscureText,
                           keyboardType: TextInputType.visiblePassword,
                           decoration: InputDecoration(
@@ -171,20 +155,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 MaterialStateProperty.all(Colors.black),
                           ),
                           onPressed: () async {
-                            if (userName != null &&
-                                userEmail!.contains("@") &&
-                                userPassword != null) {
+                            print(_emailTextController.text);
+
+                            if (_usernameTextControler != null &&
+                                _emailTextController.text.contains("@") &&
+                                _passwordTextController != null) {
                               await _auth
                                   .createUserWithEmailAndPassword(
-                                      email: userEmail!,
-                                      password: userPassword!)
+                                      email: _emailTextController.text,
+                                      password: _passwordTextController.text)
                                   .then(
                                 (value) {
                                   final user = _auth.currentUser;
-                                  return user!.updateDisplayName(userName);
+                                  return user!
+                                      .updateDisplayName(
+                                          _usernameTextControler.toString())
+                                      .then((value) async {
+                                    CollectionReference ref = FirebaseFirestore
+                                        .instance
+                                        .collection('users');
+
+                                    String docId = ref.doc().id;
+                                    setState(() {
+                                      docId = _auth.currentUser!.uid.toString();
+                                    });
+
+                                    await ref.doc(docId).set({
+                                      'userName': _usernameTextControler.text,
+                                      'id': docId,
+                                      'isFullyRegistered': false,
+                                    }).then((value) {
+                                      // Do something
+                                    }).onError((error, stackTrace) {
+                                      print(stackTrace);
+                                    });
+                                  });
                                 },
                               );
                               Navigator.pop(context);
+                              print(_auth.currentUser!.email.toString());
                             }
                           },
                           child: Text(

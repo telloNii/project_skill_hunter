@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:project_skill_hunter/screens/forgot_password.dart';
 import 'package:project_skill_hunter/screens/home_screen.dart';
+import 'package:project_skill_hunter/screens/onboarding_screen_wizard.dart';
 import 'package:project_skill_hunter/screens/signup_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -166,11 +168,23 @@ class _SignInScreenState extends State<SignInScreen> {
                                         await _auth.signInWithEmailAndPassword(
                                             email: userEmail,
                                             password: userPassword);
-                                        if (_auth.currentUser != null) {
+                                        var document = await FirebaseFirestore
+                                            .instance
+                                            .collection('users')
+                                            .doc(_auth.currentUser!.uid
+                                                .toString())
+                                            .get();
+
+                                        if (_auth.currentUser != null &&
+                                            document.get("isFullyRegistered") ==
+                                                true) {
                                           Navigator.pushNamed(
                                               context, HomeScreen.id);
-                                        } else {
-                                          setState(() {});
+                                        } else if (_auth.currentUser != null &&
+                                            document.get("isFullyRegistered") ==
+                                                false) {
+                                          Navigator.pushNamed(
+                                              context, OnBoardWizard.id);
                                         }
                                       }
                                     } catch (errorIdentifier) {
