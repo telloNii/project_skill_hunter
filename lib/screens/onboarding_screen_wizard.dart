@@ -13,11 +13,11 @@ class OnBoardWizard extends StatefulWidget {
 class _OnBoardWizardState extends State<OnBoardWizard> {
   bool obscureText = true;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  // FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  final _fullnameTextControler = TextEditingController();
-  final _dateOfBirthTextController = TextEditingController();
-  final _locationTextController = TextEditingController();
+  TextEditingController? _fullnameTextControler = TextEditingController();
+  TextEditingController? _dateOfBirthTextController = TextEditingController();
+  TextEditingController? _locationTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +87,9 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime(1900),
                                   lastDate: DateTime.now());
-                              _dateOfBirthTextController.text =
+                              _dateOfBirthTextController!.text =
                                   date!.toString().substring(0, 10);
-                              print(_dateOfBirthTextController.text);
+                              print(_dateOfBirthTextController!.text);
                             },
                             controller: _dateOfBirthTextController,
                             keyboardType: TextInputType.emailAddress,
@@ -170,10 +170,11 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                                   });
 
                                   await ref.doc(docId).set({
-                                    'fullName': _fullnameTextControler.text,
+                                    'fullName': _fullnameTextControler!.text,
                                     'date of birth':
-                                        _dateOfBirthTextController.text,
-                                    'Location': _locationTextController.text,
+                                        _dateOfBirthTextController!.text,
+                                    'Location': _locationTextController!.text,
+                                    'isFullyRegistered': true,
                                   }, SetOptions(merge: true));
                                   print(_auth.currentUser!.uid);
                                   print(docId);

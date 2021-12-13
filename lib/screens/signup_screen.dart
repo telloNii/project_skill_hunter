@@ -12,9 +12,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool obscureText = true;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final _usernameTextControler = TextEditingController();
-  final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  TextEditingController? _usernameTextControler = TextEditingController();
+  TextEditingController? _emailTextController = TextEditingController();
+  TextEditingController? _passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -155,21 +155,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 MaterialStateProperty.all(Colors.black),
                           ),
                           onPressed: () async {
-                            print(_emailTextController.text);
+                            print(_emailTextController!.text);
 
                             if (_usernameTextControler != null &&
-                                _emailTextController.text.contains("@") &&
+                                _emailTextController!.text.contains("@") &&
                                 _passwordTextController != null) {
                               await _auth
                                   .createUserWithEmailAndPassword(
-                                      email: _emailTextController.text,
-                                      password: _passwordTextController.text)
+                                      email: _emailTextController!.text,
+                                      password: _passwordTextController!.text)
                                   .then(
                                 (value) {
                                   final user = _auth.currentUser;
                                   return user!
                                       .updateDisplayName(
-                                          _usernameTextControler.toString())
+                                          _usernameTextControler!.text)
                                       .then((value) async {
                                     CollectionReference ref = FirebaseFirestore
                                         .instance
@@ -181,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     });
 
                                     await ref.doc(docId).set({
-                                      'userName': _usernameTextControler.text,
+                                      'userName': _usernameTextControler!.text,
                                       'id': docId,
                                       'isFullyRegistered': false,
                                     }).then((value) {
