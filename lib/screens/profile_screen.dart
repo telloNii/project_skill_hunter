@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_skill_hunter/screens/settings_screen.dart';
 import 'package:project_skill_hunter/screens/splash_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -29,13 +30,16 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _firebaseAuth.currentUser!.displayName!,
+                      _firebaseAuth.currentUser!.displayName!.substring(52, 60),
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                           fontFamily: "SourceSansPro"),
                     ),
-                    Text(_firebaseAuth.currentUser!.email.toString()),
+                    Text(
+                      _firebaseAuth.currentUser!.email.toString(),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
               ),
@@ -64,7 +68,9 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       Card(
                         child: ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, SettingsScreen.id);
+                          },
                           leading: Icon(Icons.settings),
                           title: Text("Settings"),
                         ),

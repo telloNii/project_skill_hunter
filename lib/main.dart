@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project_skill_hunter/screens/home_screen.dart';
-import 'package:project_skill_hunter/screens/onboarding_screen_wizard.dart';
-import 'package:project_skill_hunter/screens/signin_screen.dart';
-import 'package:project_skill_hunter/screens/signup_screen.dart';
+import 'package:project_skill_hunter/screens/authentication/onboarding_screen_wizard.dart';
+import 'package:project_skill_hunter/screens/settings_screen.dart';
+import 'package:project_skill_hunter/screens/authentication/signin_screen.dart';
+import 'package:project_skill_hunter/screens/authentication/signup_screen.dart';
 import 'package:project_skill_hunter/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -23,6 +24,7 @@ class SkillHunter extends StatelessWidget {
         SignUpScreen.id: (context) => SignUpScreen(),
         HomeScreen.id: (context) => HomeScreen(),
         OnBoardWizard.id: (context) => OnBoardWizard(),
+        SettingsScreen.id: (context) => SettingsScreen(),
       },
       initialRoute: SplashScreen.id,
     );

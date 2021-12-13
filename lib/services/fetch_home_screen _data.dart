@@ -24,12 +24,9 @@ class FetchDatabaseData extends StatelessWidget {
 
             for (var menuItem in menuItems) {
               final userImage = menuItem.data()["Image"];
-              final userName = menuItem.data()['UserName'];
               final email = menuItem.data()['Email'];
               final fullName = menuItem.data()['Full name'];
-              final userID = menuItem.data()['UID'];
               final location = menuItem.data()['Location'];
-              final dateOfBirth = menuItem.data()['Date Of Birth'];
 
               final menuItemWidget = HomeScreenWidget(
                   image: userImage, fullName: fullName, email: email);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/signin_screen.dart';
+import 'package:project_skill_hunter/screens/authentication/signin_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static final String id = "splash screen router";
