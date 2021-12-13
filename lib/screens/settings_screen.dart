@@ -6,6 +6,12 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
         backgroundColor: Colors.brown,
         centerTitle: true,
         title: Text("Settings"),
