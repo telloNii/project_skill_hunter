@@ -17,7 +17,8 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController? _emailTextController = TextEditingController();
- final TextEditingController? _passwordTextController = TextEditingController();
+  final TextEditingController? _passwordTextController =
+      TextEditingController();
 
   bool obscureText = true;
   late String userEmail;
@@ -32,6 +33,18 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   String? errorText;
+  void documents() async {
+    var document = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_auth.currentUser!.uid.toString())
+        .get();
+  }
+
+  @override
+  void initState() {
+    documents();
+    super.initState();
+  }
 
   @override
   void dispose() {

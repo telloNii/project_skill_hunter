@@ -8,7 +8,7 @@ class FetchDatabaseData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        stream: _firestore.collection('Menu').snapshots(),
+        stream: _firestore.collection('users').snapshots(),
         builder: (BuildContext context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           List<Widget> menuItemWidgets = [];
@@ -23,9 +23,9 @@ class FetchDatabaseData extends StatelessWidget {
             final menuItems = snapshot.data!.docs.reversed;
 
             for (var menuItem in menuItems) {
-              final userImage = menuItem.data()["Image"];
-              final email = menuItem.data()['Email'];
-              final fullName = menuItem.data()['Full name'];
+              final userImage = menuItem.data()["image"];
+              final email = menuItem.data()['email'];
+              final fullName = menuItem.data()['fullName'];
               final location = menuItem.data()['Location'];
 
               final menuItemWidget = HomeScreenWidget(
@@ -35,9 +35,12 @@ class FetchDatabaseData extends StatelessWidget {
               // print(menuItemPrice);
             }
           }
-          return Container(
-              height: MediaQuery.of(context).size.longestSide,
-              child: ListView(reverse: false, children: menuItemWidgets));
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Container(
+                // height: MediaQuery.of(context).size.longestSide,
+                child: ListView(reverse: false, children: menuItemWidgets)),
+          );
         });
   }
 }
