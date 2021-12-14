@@ -11,7 +11,6 @@ class OnBoardWizard extends StatefulWidget {
 }
 
 class _OnBoardWizardState extends State<OnBoardWizard> {
-  bool obscureText = true;
   FirebaseAuth _auth = FirebaseAuth.instance;
   // FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
