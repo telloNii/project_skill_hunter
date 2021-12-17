@@ -7,6 +7,7 @@ import 'package:project_skill_hunter/screens/authentication/signin_screen.dart';
 import 'package:project_skill_hunter/screens/authentication/signup_screen.dart';
 import 'package:project_skill_hunter/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:project_skill_hunter/screens/view_card_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,7 @@ class SkillHunter extends StatelessWidget {
         OnBoardWizard.id: (context) => OnBoardWizard(),
         SettingsScreen.id: (context) => SettingsScreen(),
         UpdateProfileScreen.id: (context) => UpdateProfileScreen(),
+        ViewCardScreen.id: (context) => ViewCardScreen(),
       },
       initialRoute: SplashScreen.id,
     );
