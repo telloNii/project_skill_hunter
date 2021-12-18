@@ -1,10 +1,36 @@
+import 'dart:ffi';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_skill_hunter/screens/settings_screen.dart';
 import 'package:project_skill_hunter/screens/splash_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  var userName;
+
+  void User() async {
+    var document = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_firebaseAuth.currentUser!.uid.toString())
+        .get();
+    userName = await document.get("fullName");
+    _firebaseAuth.currentUser!.updateDisplayName(userName);
+  }
+
+  @override
+  void initState() {
+    User();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _firebaseAuth.currentUser!.displayName!.substring(52, 60),
+                      "${_firebaseAuth.currentUser!.displayName}",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,

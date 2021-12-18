@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.brown,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt_sharp), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.person_sharp), label: ""),
         ],
       ),
