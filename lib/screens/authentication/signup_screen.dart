@@ -15,15 +15,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController? _usernameTextControler = TextEditingController();
   TextEditingController? _emailTextController = TextEditingController();
   TextEditingController? _passwordTextController = TextEditingController();
-  late String _username;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.longestSide * 0.9,
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
@@ -35,23 +33,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 12.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                     child: Text(
                       "Register",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 0.0, horizontal: 12.0),
+                    padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
                     child: Text(
                       "First let's get you registered",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey.shade600),
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                     ),
                   ),
                   Padding(
@@ -60,11 +52,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 50,
                       child: TextFormField(
                         controller: _usernameTextControler,
-                        onChanged: (setUsername) {
-                          setState(() {
-                            _username = setUsername;
-                          });
-                        },
                         decoration: InputDecoration(
                           hintText: "Please enter your Username",
                           labelText: "UserName",
@@ -74,8 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.black)),
+                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black)),
                         ),
                       ),
                     ),
@@ -96,8 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.black)),
+                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black)),
                         ),
                       ),
                     ),
@@ -134,8 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.black)),
+                                borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -156,8 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: MediaQuery.of(context).size.width,
                       child: OutlinedButton(
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.black),
+                            backgroundColor: MaterialStateProperty.all(Colors.black),
                           ),
                           onPressed: () async {
                             if (_usernameTextControler != null &&
@@ -165,20 +148,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 _passwordTextController != null) {
                               await _auth
                                   .createUserWithEmailAndPassword(
-                                      email: _emailTextController!.text,
-                                      password: _passwordTextController!.text)
+                                      email: _emailTextController!.text, password: _passwordTextController!.text)
                                   .then(
                                 (value) async {
-                                  CollectionReference ref = FirebaseFirestore
-                                      .instance
-                                      .collection('users');
+                                  CollectionReference ref = FirebaseFirestore.instance.collection('users');
 
-                                  await ref
-                                      .doc(_auth.currentUser!.uid.toString())
-                                      .set({
+                                  await ref.doc(_auth.currentUser!.uid.toString()).set({
                                     'email': _emailTextController!.value.text,
                                     'userName': _usernameTextControler!.text,
                                     'isFullyRegistered': false,
+                                    'isSkillRegistered': false,
                                     'image':
                                         "https://png.pngitem.com/pimgs/s/111-1114675_user-login-person-man-enter-person-login-icon.png",
                                   }).then((value) {
@@ -202,8 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20, horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20.0),
               child: Wrap(
                 alignment: WrapAlignment.center,
                 children: [
@@ -216,10 +194,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Text(
                       "Terms of Service ",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.green,
-                          fontWeight: FontWeight.w600),
+                      style: TextStyle(fontSize: 12, color: Colors.green, fontWeight: FontWeight.w600),
                     ),
                   ),
                 ],

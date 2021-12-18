@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:project_skill_hunter/screens/authentication/forgot_password.dart';
+import 'package:project_skill_hunter/screens/authentication/onboarding_screen_wizzard_skills.dart';
 import 'package:project_skill_hunter/screens/homeScreenRoutes/home_screen.dart';
 import 'package:project_skill_hunter/screens/authentication/onboarding_screen_wizard.dart';
 import 'package:project_skill_hunter/screens/authentication/signup_screen.dart';
@@ -17,8 +18,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController? _emailTextController = TextEditingController();
-  final TextEditingController? _passwordTextController =
-      TextEditingController();
+  final TextEditingController? _passwordTextController = TextEditingController();
 
   bool obscureText = true;
   late String userEmail;
@@ -62,12 +62,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 12.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                       child: Text(
                         "Sign In",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                       ),
                     ),
                     Container(
@@ -79,26 +77,19 @@ class _SignInScreenState extends State<SignInScreen> {
                               height: 50,
                               child: TextFormField(
                                 controller: _emailTextController,
-                                onChanged: (String email) {
-                                  setState(() {
-                                    userEmail = email;
-                                  });
-                                },
+                                autocorrect: false,
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
                                   labelText: "Email",
-                                  labelStyle:
-                                      TextStyle(color: Colors.lightBlue),
+                                  labelStyle: TextStyle(color: Colors.lightBlue),
                                   hintText: "Please enter your Email",
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      borderSide: BorderSide(color: Colors.black)),
                                 ),
                               ),
                             ),
@@ -109,21 +100,14 @@ class _SignInScreenState extends State<SignInScreen> {
                               height: _onErrorBoxResize(),
                               child: TextFormField(
                                 controller: _passwordTextController,
-                                onChanged: (String password) {
-                                  setState(() {
-                                    userPassword = password;
-                                  });
-                                },
                                 obscureText: obscureText,
                                 keyboardType: TextInputType.visiblePassword,
                                 decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                      FloatingLabelBehavior.always,
+                                  floatingLabelBehavior: FloatingLabelBehavior.always,
                                   labelText: "Password",
                                   hintText: "Please enter your Password",
                                   errorText: errorText,
-                                  labelStyle:
-                                      TextStyle(color: Colors.lightBlue),
+                                  labelStyle: TextStyle(color: Colors.lightBlue),
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       if (obscureText == true) {
@@ -143,16 +127,13 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                   errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      borderSide: BorderSide(color: Colors.black)),
                                   focusedErrorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      borderSide: BorderSide(color: Colors.black)),
                                   focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
-                                      borderSide:
-                                          BorderSide(color: Colors.black)),
+                                      borderSide: BorderSide(color: Colors.black)),
                                 ),
                               ),
                             ),
@@ -164,41 +145,38 @@ class _SignInScreenState extends State<SignInScreen> {
                               width: MediaQuery.of(context).size.width,
                               child: OutlinedButton(
                                   style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.black),
+                                    backgroundColor: MaterialStateProperty.all(Colors.black),
                                   ),
                                   onPressed: () async {
                                     try {
-                                      if (_emailTextController!
-                                              .value.text.isNotEmpty &&
-                                          userEmail.contains("@")) {
+                                      if (_emailTextController!.value.text.isNotEmpty &&
+                                          _emailTextController!.text.contains("@") &&
+                                          _passwordTextController!.text.isNotEmpty) {
                                         await _auth.signInWithEmailAndPassword(
-                                            email: userEmail,
-                                            password: userPassword);
-                                        var document = await FirebaseFirestore
-                                            .instance
+                                            email: _emailTextController!.text, password: _passwordTextController!.text);
+                                        var document = await FirebaseFirestore.instance
                                             .collection('users')
-                                            .doc(_auth.currentUser!.uid
-                                                .toString())
+                                            .doc(_auth.currentUser!.uid.toString())
                                             .get();
 
                                         if (_auth.currentUser != null &&
-                                            document.get("isFullyRegistered") ==
-                                                true) {
-                                          Navigator.pushNamed(
-                                              context, HomeScreen.id);
+                                            document.get("isFullyRegistered") == true &&
+                                            document.get("isSkillRegistered") == true) {
+                                          Navigator.pushNamed(context, HomeScreen.id);
                                         } else if (_auth.currentUser != null &&
-                                            document.get("isFullyRegistered") ==
-                                                false) {
-                                          Navigator.pushNamed(
-                                              context, OnBoardWizard.id);
+                                            document.get("isFullyRegistered") == false &&
+                                            document.get("isSkillRegistered") == false) {
+                                          Navigator.pushNamed(context, OnBoardWizard.id);
+                                        } else if (_auth.currentUser != null &&
+                                            document.get("isFullyRegistered") == true &&
+                                            document.get("isSkillRegistered") == false) {
+                                          Navigator.pushNamed(context, SkillsOnBoardWizard.id);
                                         }
                                       }
                                     } catch (errorIdentifier) {
                                       setState(() {
                                         resetError = true;
-                                        errorText =
-                                            "incorrect email or password";
+                                        errorText = "incorrect email or password";
                                         _emailTextController!.clear();
                                         _passwordTextController!.clear();
                                       });
@@ -218,24 +196,21 @@ class _SignInScreenState extends State<SignInScreen> {
                               width: MediaQuery.of(context).size.width,
                               child: OutlinedButton(
                                   style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(Colors.black),
+                                    backgroundColor: MaterialStateProperty.all(Colors.black),
                                   ),
                                   onPressed: () {},
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Image.asset(
                                           "images/apple logo.png",
                                           height: 20,
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: Text(
                                           "Sign in with Apple",
                                           style: TextStyle(color: Colors.white),
@@ -251,37 +226,29 @@ class _SignInScreenState extends State<SignInScreen> {
                                 children: [
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                       child: OutlinedButton(
                                           style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.black),
+                                            backgroundColor: MaterialStateProperty.all(Colors.black),
                                           ),
                                           onPressed: () {},
                                           child: Text(
                                             "Sign in with facebook",
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(color: Colors.white),
                                           )),
                                     ),
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
+                                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                       child: OutlinedButton(
                                           style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.black),
+                                            backgroundColor: MaterialStateProperty.all(Colors.black),
                                           ),
                                           onPressed: () {},
                                           child: Text(
                                             "Sign in with google",
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: TextStyle(color: Colors.white),
                                           )),
                                     ),
                                   ),
@@ -296,8 +263,7 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
