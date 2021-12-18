@@ -33,16 +33,9 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   String? errorText;
-  void documents() async {
-    var document = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_auth.currentUser!.uid.toString())
-        .get();
-  }
 
   @override
   void initState() {
-    documents();
     super.initState();
   }
 
@@ -57,11 +50,11 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          SafeArea(
+            child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Container(
                 child: Column(
@@ -301,49 +294,49 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                        backgroundColor: Color(0x00000000),
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (context) => SingleChildScrollView(
-                          child: SignUpScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      "Register",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      backgroundColor: Color(0x00000000),
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => SingleChildScrollView(
+                        child: SignUpScreen(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Register",
+                    style: TextStyle(fontSize: 18.0),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      showModalBottomSheet(
-                        backgroundColor: Color(0x00000000),
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (context) => SingleChildScrollView(
-                          child: ForgotPassword(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      "Forgot password?",
-                      style: TextStyle(fontSize: 18.0),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      backgroundColor: Color(0x00000000),
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => SingleChildScrollView(
+                        child: ForgotPassword(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Forgot password?",
+                    style: TextStyle(fontSize: 18.0),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

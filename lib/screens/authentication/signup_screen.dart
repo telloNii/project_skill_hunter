@@ -15,7 +15,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController? _usernameTextControler = TextEditingController();
   TextEditingController? _emailTextController = TextEditingController();
   TextEditingController? _passwordTextController = TextEditingController();
-
+  late String _username;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,6 +60,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       height: 50,
                       child: TextFormField(
                         controller: _usernameTextControler,
+                        onChanged: (setUsername) {
+                          setState(() {
+                            _username = setUsername;
+                          });
+                        },
                         decoration: InputDecoration(
                           hintText: "Please enter your Username",
                           labelText: "UserName",
@@ -155,8 +160,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 MaterialStateProperty.all(Colors.black),
                           ),
                           onPressed: () async {
-                            print(_emailTextController!.text);
-
                             if (_usernameTextControler != null &&
                                 _emailTextController!.text.contains("@") &&
                                 _passwordTextController != null) {
@@ -165,35 +168,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       email: _emailTextController!.text,
                                       password: _passwordTextController!.text)
                                   .then(
-                                (value) {
-                                  final user = _auth.currentUser;
-                                  return user!
-                                      .updateDisplayName(
-                                          _usernameTextControler!.text)
-                                      .then((value) async {
-                                    CollectionReference ref = FirebaseFirestore
-                                        .instance
-                                        .collection('users');
+                                (value) async {
+                                  CollectionReference ref = FirebaseFirestore
+                                      .instance
+                                      .collection('users');
 
-                                    String docId = ref.doc().id;
-                                    setState(() {
-                                      docId = _auth.currentUser!.uid.toString();
-                                    });
-
-                                    await ref.doc(docId).set({
-                                      'userName': _usernameTextControler!.text,
-                                      'id': docId,
-                                      'isFullyRegistered': false,
-                                    }).then((value) {
-                                      // Do something
-                                    }).onError((error, stackTrace) {
-                                      print(stackTrace);
-                                    });
+                                  await ref
+                                      .doc(_auth.currentUser!.uid.toString())
+                                      .set({
+                                    'email': _emailTextController!.value.text,
+                                    'userName': _usernameTextControler!.text,
+                                    'isFullyRegistered': false,
+                                    'image':
+                                        "https://png.pngitem.com/pimgs/s/111-1114675_user-login-person-man-enter-person-login-icon.png",
+                                  }).then((value) {
+                                    // Do something
+                                  }).onError((error, stackTrace) {
+                                    print(stackTrace);
                                   });
                                 },
                               );
+                              print(_auth.currentUser!.displayName);
                               Navigator.pop(context);
-                              print(_auth.currentUser!.email.toString());
                             }
                           },
                           child: Text(
