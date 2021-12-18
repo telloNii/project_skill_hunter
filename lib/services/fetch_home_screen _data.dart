@@ -26,10 +26,16 @@ class FetchDatabaseData extends StatelessWidget {
               final userImage = menuItem.data()["image"];
               final email = menuItem.data()['email'];
               final fullName = menuItem.data()['fullName'];
-              final location = menuItem.data()['Location'];
+              final userID = menuItem.data()['id'];
+              final description = menuItem.data()['aboutMe'];
 
               final menuItemWidget = HomeScreenWidget(
-                  image: userImage, fullName: fullName, email: email);
+                userID: userID,
+                image: userImage,
+                fullName: fullName,
+                email: email,
+                description: description!,
+              );
               menuItemWidgets.add(menuItemWidget);
 
               // print(menuItemPrice);
