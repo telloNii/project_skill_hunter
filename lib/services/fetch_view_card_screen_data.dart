@@ -23,34 +23,6 @@ class FetchViewUserData extends StatelessWidget {
         builder: (BuildContext context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           List<Widget> cardItemWidgets = [
-            Container(
-              height: MediaQuery.of(context).size.longestSide * 0.4,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                    image,
-                  ),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: CircleAvatar(
-                  radius: 22,
-                  backgroundColor: Colors.black,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 5.0),
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.arrow_back_ios),
-                    ),
-                  ),
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -81,8 +53,7 @@ class FetchViewUserData extends StatelessWidget {
             final cardItems = snapshot.data!.docs.reversed;
 
             for (var cartItemData in cardItems) {
-              final skillTitle = cartItemData.data()["skills"];
-
+              final skillTitle = cartItemData.data()["skill"];
               final cardItemWidget = ListCard(
                 skillTitle: skillTitle,
               );
@@ -91,12 +62,12 @@ class FetchViewUserData extends StatelessWidget {
               // print(menuItemPrice);
             }
           }
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Container(
-                // height: MediaQuery.of(context).size.longestSide,
-                child: ListView(reverse: false, children: cardItemWidgets)),
-          );
+          return Container(
+              // height: MediaQuery.of(context).size.longestSide,
+              child: ListView(
+                  padding: EdgeInsets.all(0),
+                  reverse: false,
+                  children: cardItemWidgets));
         });
   }
 }
