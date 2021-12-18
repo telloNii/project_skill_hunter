@@ -28,7 +28,6 @@ class SkillHunter extends StatelessWidget {
         OnBoardWizard.id: (context) => OnBoardWizard(),
         SettingsScreen.id: (context) => SettingsScreen(),
         UpdateProfileScreen.id: (context) => UpdateProfileScreen(),
-        ViewCardScreen.id: (context) => ViewCardScreen(),
       },
       initialRoute: SplashScreen.id,
     );
