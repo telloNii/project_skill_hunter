@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/profile_screen.dart';
+import 'package:project_skill_hunter/screens/profileScreenRoutes/profile_screen.dart';
 import 'package:project_skill_hunter/screens/search_screen.dart';
 import 'package:project_skill_hunter/services/fetch_home_screen%20_data.dart';
 

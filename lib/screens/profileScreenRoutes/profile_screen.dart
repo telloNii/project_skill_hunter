@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/settings_screen.dart';
+import 'package:project_skill_hunter/screens/profileScreenRoutes/settings_screen.dart';
 import 'package:project_skill_hunter/screens/splash_screen.dart';
 
 class ProfileScreen extends StatefulWidget {

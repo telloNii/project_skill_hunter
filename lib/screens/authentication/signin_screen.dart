@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:project_skill_hunter/screens/authentication/forgot_password.dart';
-import 'package:project_skill_hunter/screens/home_screen.dart';
+import 'package:project_skill_hunter/screens/homeScreenRoutes/home_screen.dart';
 import 'package:project_skill_hunter/screens/authentication/onboarding_screen_wizard.dart';
 import 'package:project_skill_hunter/screens/authentication/signup_screen.dart';
 

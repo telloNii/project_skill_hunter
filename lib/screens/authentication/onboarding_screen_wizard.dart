@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/home_screen.dart';
+import 'package:project_skill_hunter/screens/homeScreenRoutes/home_screen.dart';
 
 class OnBoardWizard extends StatefulWidget {
   static final String id = "onboarding wizard route";
