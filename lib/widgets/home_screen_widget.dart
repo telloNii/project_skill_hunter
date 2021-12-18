@@ -8,10 +8,14 @@ class HomeScreenWidget extends StatelessWidget {
     required final String image,
     required final String fullName,
     required final String email,
+    required final String description,
+    required final String userID,
   })  : _image = image,
         _fullName = fullName,
-        _email = email;
-  late final String _image, _fullName, _email;
+        _email = email,
+        _description = description,
+        _userID = userID;
+  String? _image, _fullName, _email, _description, _userID;
   bool _isMe = false;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -29,7 +33,17 @@ class HomeScreenWidget extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, ViewCardScreen.id);
+            print(_userID);
+            Navigator.push(context, MaterialPageRoute(
+              builder: (BuildContext context) {
+                return ViewCardScreen(
+                  userID: _userID!,
+                  name: _fullName!,
+                  description: _description!,
+                  image: _image!,
+                );
+              },
+            ));
           },
           child: Card(
             elevation: 5,
@@ -37,22 +51,21 @@ class HomeScreenWidget extends StatelessWidget {
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(_image),
-                  ),
-                ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundImage: NetworkImage(_image!),
+                    )),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _fullName,
+                        _fullName!,
                         style: TextStyle(fontSize: 20),
                       ),
-                      Text(_email),
+                      Text(_email!),
                     ],
                   ),
                 ),
