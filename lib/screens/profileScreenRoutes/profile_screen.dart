@@ -1,8 +1,6 @@
-import 'dart:ffi';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_skill_hunter/screens/authentication/onboarding_screen_wizzard_skills.dart';
 import 'package:project_skill_hunter/screens/profileScreenRoutes/settings_screen.dart';
 import 'package:project_skill_hunter/screens/splash_screen.dart';
 
@@ -14,20 +12,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  var userName;
-
-  void User() async {
-    var document = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(_firebaseAuth.currentUser!.uid.toString())
-        .get();
-    userName = await document.get("fullName");
-    _firebaseAuth.currentUser!.updateDisplayName(userName);
-  }
-
   @override
   void initState() {
-    User();
     super.initState();
   }
 
@@ -99,6 +85,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           },
                           leading: Icon(Icons.settings),
                           title: Text("Settings"),
+                        ),
+                      ),
+                      Card(
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, SkillsOnBoardWizard.id);
+                          },
+                          leading: Icon(Icons.person_rounded),
+                          title: Text("update Skills"),
                         ),
                       ),
                     ],

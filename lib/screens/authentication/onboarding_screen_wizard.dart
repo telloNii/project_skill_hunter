@@ -2,24 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_skill_hunter/screens/authentication/onboarding_screen_wizzard_skills.dart';
 import 'package:project_skill_hunter/screens/homeScreenRoutes/home_screen.dart';
 
 class OnBoardWizard extends StatefulWidget {
-  static final String id = "onboarding wizard route";
+  static final String id = "on boarding wizard route";
   @override
   _OnBoardWizardState createState() => _OnBoardWizardState();
 }
 
 class _OnBoardWizardState extends State<OnBoardWizard> {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  // FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  TextEditingController? _fullnameTextControler = TextEditingController();
+  TextEditingController? _fullNameTextController = TextEditingController();
   TextEditingController? _dateOfBirthTextController = TextEditingController();
   TextEditingController? _locationTextController = TextEditingController();
   @override
   void dispose() {
-    _fullnameTextControler!.dispose();
+    _fullNameTextController!.dispose();
     _dateOfBirthTextController!.dispose();
     _locationTextController!.dispose();
     super.dispose();
@@ -39,23 +39,17 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 12.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                         child: Text(
                           "Basic Infomation",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w500),
+                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0.0, horizontal: 12.0),
+                        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 12.0),
                         child: Text(
                           "Let's complete get you registered",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey.shade600),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: Colors.grey.shade600),
                         ),
                       ),
                       Padding(
@@ -63,19 +57,19 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                         child: SizedBox(
                           height: 50,
                           child: TextFormField(
-                            controller: _fullnameTextControler,
+                            controller: _fullNameTextController,
                             decoration: InputDecoration(
                               hintText: "Please enter your Username",
                               labelText: "Full Name",
                               labelStyle: TextStyle(color: Colors.lightBlue),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.black)),
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(color: Colors.black),
+                              ),
                             ),
                           ),
                         ),
@@ -86,15 +80,13 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                           height: 50,
                           child: TextFormField(
                             onTap: () async {
-                              FocusScope.of(context)
-                                  .requestFocus(new FocusNode());
+                              FocusScope.of(context).requestFocus(new FocusNode());
                               var date = await showDatePicker(
                                   context: context,
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime(1900),
                                   lastDate: DateTime.now());
-                              _dateOfBirthTextController!.text =
-                                  date!.toString().substring(0, 10);
+                              _dateOfBirthTextController!.text = date!.toString().substring(0, 10);
                               print(_dateOfBirthTextController!.text);
                             },
                             controller: _dateOfBirthTextController,
@@ -103,14 +95,12 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                               hintText: "Please enter your Date of Birth",
                               labelText: "Date Of Birth",
                               labelStyle: TextStyle(color: Colors.lightBlue),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
+                              floatingLabelBehavior: FloatingLabelBehavior.always,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: Colors.black)),
+                                  borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black)),
                             ),
                           ),
                         ),
@@ -127,15 +117,13 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                                 hintText: "Please enter your Location",
                                 labelText: "Location",
                                 labelStyle: TextStyle(color: Colors.lightBlue),
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.always,
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        BorderSide(color: Colors.black)),
+                                    borderSide: BorderSide(color: Colors.black)),
                               ),
                             ),
                           ),
@@ -156,36 +144,31 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                           width: MediaQuery.of(context).size.width,
                           child: OutlinedButton(
                               style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.black),
+                                backgroundColor: MaterialStateProperty.all(Colors.black),
                               ),
                               onPressed: () async {
-                                if (_fullnameTextControler != null &&
+                                if (_fullNameTextController != null &&
                                     _dateOfBirthTextController != null &&
                                     _locationTextController != null) {
-                                  final user = _auth.currentUser;
-                                  CollectionReference ref = FirebaseFirestore
-                                      .instance
-                                      .collection('users');
-
-                                  String docId = ref.doc().id;
-                                  setState(() {
-                                    docId = _auth.currentUser!.uid.toString();
-                                    user!.updateDisplayName(
-                                        _fullnameTextControler.toString());
-                                  });
-
-                                  await ref.doc(docId).set({
-                                    'fullName': _fullnameTextControler!.text,
-                                    'date of birth':
-                                        _dateOfBirthTextController!.text,
+                                  await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(_auth.currentUser!.uid.toString())
+                                      .set({
+                                    'fullName': _fullNameTextController!.text,
+                                    'date of birth': _dateOfBirthTextController!.text,
                                     'Location': _locationTextController!.text,
                                     'isFullyRegistered': true,
                                   }, SetOptions(merge: true));
-                                  print(_auth.currentUser!.uid);
-                                  print(docId);
-                                  Navigator.popAndPushNamed(
-                                      context, HomeScreen.id);
+                                  var document = await FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(_auth.currentUser!.uid.toString())
+                                      .get();
+
+                                  if (_auth.currentUser != null && document.get("isSkillRegistered") == true) {
+                                    Navigator.pushNamed(context, HomeScreen.id);
+                                  } else if (_auth.currentUser != null && document.get("isSkillRegistered") == false) {
+                                    Navigator.pushNamed(context, SkillsOnBoardWizard.id);
+                                  }
                                 }
                               },
                               child: Text(
@@ -198,8 +181,7 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -212,10 +194,7 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                         child: Text(
                           "Terms of Service ",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.green,
-                              fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: 12, color: Colors.green, fontWeight: FontWeight.w600),
                         ),
                       ),
                     ],
