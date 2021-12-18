@@ -14,29 +14,62 @@ class SplashScreen extends StatelessWidget {
               image: AssetImage("images/background_image.jpg"),
               fit: BoxFit.fill),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.shortestSide,
-                height: 35,
-                child: OutlinedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.cyan)),
-                  onPressed: () {
-                    Navigator.pushNamed(context, SignInScreen.id);
-                  },
-                  child: Text(
-                    "Sign Up/Sign In",
-                    style: TextStyle(color: Colors.white),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Welcome to",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Skill Hunter",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 1.4),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.shortestSide,
+                  height: 35,
+                  child: OutlinedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.cyan)),
+                    onPressed: () {
+                      Navigator.pushNamed(context, SignInScreen.id);
+                    },
+                    child: Text(
+                      "Sign Up/Sign In",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
