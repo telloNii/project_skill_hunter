@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:project_skill_hunter/screens/forgot_password.dart';
@@ -20,7 +19,6 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
   String? errorText;
 
   List<Widget> _authTypeTextFields = [SignInScreen(), SignUpScreen()];
