@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_skill_hunter/screens/auth_screen.dart';
 import 'package:project_skill_hunter/screens/signin_screen.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -62,7 +63,7 @@ class SplashScreen extends StatelessWidget {
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.cyan)),
                     onPressed: () {
-                      Navigator.pushNamed(context, SignInScreen.id);
+                      Navigator.pushNamed(context, AuthScreen.id);
                     },
                     child: Text(
                       "Sign Up/Sign In",
