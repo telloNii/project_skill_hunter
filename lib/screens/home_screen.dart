@@ -19,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List displayScreeen = [FetchDatabaseData(), SearchScreen(), ProfileScreen()];
+    List displayScreen = [FetchDatabaseData(), SearchScreen(), ProfileScreen()];
     List displayAppBar = [
       AppBar(
         elevation: 2,
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ];
     return Scaffold(
       appBar: displayAppBar[bottomNavBarIndex],
-      body: displayScreeen[bottomNavBarIndex],
+      body: displayScreen[bottomNavBarIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: newIndex,
         currentIndex: bottomNavBarIndex,
