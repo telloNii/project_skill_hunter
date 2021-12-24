@@ -7,7 +7,6 @@ import 'package:flutter/rendering.dart';
 import 'package:project_skill_hunter/screens/onboarding_screen_wizzard_skills.dart';
 import 'package:project_skill_hunter/screens/home_screen.dart';
 import 'package:project_skill_hunter/screens/onboarding_screen_wizard.dart';
-import 'package:project_skill_hunter/screens/signup_screen.dart';
 
 import '../constants.dart';
 
@@ -28,8 +27,6 @@ class _SignInScreenState extends State<SignInScreen> {
       return 70;
     }
   }
-
-  List<Widget> _authTypeTextFields = [SignUpScreen()];
 
   bool obscureText = true;
   bool resetError = false;
