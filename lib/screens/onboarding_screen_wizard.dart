@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/authentication/onboarding_screen_wizzard_skills.dart';
-import 'package:project_skill_hunter/screens/homeScreenRoutes/home_screen.dart';
+import 'package:project_skill_hunter/screens/onboarding_screen_wizzard_skills.dart';
+import 'package:project_skill_hunter/screens/home_screen.dart';
+
+import '../constants.dart';
 
 class OnBoardWizard extends StatefulWidget {
   static final String id = "on boarding wizard route";
@@ -58,19 +60,7 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                           height: 50,
                           child: TextFormField(
                             controller: _fullNameTextController,
-                            decoration: InputDecoration(
-                              hintText: "Please enter your Username",
-                              labelText: "Full Name",
-                              labelStyle: TextStyle(color: Colors.lightBlue),
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.black),
-                              ),
-                            ),
+                            decoration: textFieldInputDecoration,
                           ),
                         ),
                       ),
@@ -91,17 +81,7 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                             },
                             controller: _dateOfBirthTextController,
                             keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              hintText: "Please enter your Date of Birth",
-                              labelText: "Date Of Birth",
-                              labelStyle: TextStyle(color: Colors.lightBlue),
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black)),
-                            ),
+                            decoration: textFieldInputDecoration,
                           ),
                         ),
                       ),
@@ -111,21 +91,10 @@ class _OnBoardWizardState extends State<OnBoardWizard> {
                           height: 50,
                           child: Visibility(
                             child: TextFormField(
-                              controller: _locationTextController,
-                              keyboardType: TextInputType.visiblePassword,
-                              decoration: InputDecoration(
-                                hintText: "Please enter your Location",
-                                labelText: "Location",
-                                labelStyle: TextStyle(color: Colors.lightBlue),
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(color: Colors.black)),
-                              ),
-                            ),
+                                controller: _locationTextController,
+                                keyboardType: TextInputType.visiblePassword,
+                                decoration: textFieldInputDecoration.copyWith(
+                                    hintText: "Enter Your Location", labelText: "Location")),
                           ),
                         ),
                       ),

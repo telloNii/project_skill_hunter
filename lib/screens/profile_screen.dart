@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/authentication/onboarding_screen_wizzard_skills.dart';
-import 'package:project_skill_hunter/screens/profileScreenRoutes/settings_screen.dart';
+import 'package:project_skill_hunter/screens/onboarding_screen_wizzard_skills.dart';
+import 'package:project_skill_hunter/screens/settings_screen.dart';
 import 'package:project_skill_hunter/screens/splash_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -43,10 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Text(
                       "${_firebaseAuth.currentUser!.displayName}",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "SourceSansPro"),
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, fontFamily: "SourceSansPro"),
                     ),
                     Text(
                       _firebaseAuth.currentUser!.email.toString(),
@@ -90,8 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Card(
                         child: ListTile(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, SkillsOnBoardWizard.id);
+                            Navigator.pushNamed(context, SkillsOnBoardWizard.id);
                           },
                           leading: Icon(Icons.person_rounded),
                           title: Text("update Skills"),
