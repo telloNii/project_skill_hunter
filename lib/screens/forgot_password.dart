@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_skill_hunter/constants.dart';
 
 class ForgotPassword extends StatefulWidget {
   static final String id = "forgot password route";
@@ -34,8 +35,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       height: MediaQuery.of(context).size.longestSide * 0.9,
       decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
@@ -47,44 +47,24 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 12.0),
-                    child: Text(
-                      "Forgot Password",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
-                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                    child: Text("Forgot Password", style: authPageHeaderTextStyle.copyWith(color: Colors.black)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
                       height: _onErrorBoxResize(),
                       child: TextFormField(
-                        onChanged: (String email) {
-                          setState(() {
-                            userEmail = email;
-                          });
-                        },
+                        controller: _emailTextEditingController,
                         keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: "Please enter your Email",
-                          errorText: errorText,
-                          labelStyle: TextStyle(color: Colors.lightBlue),
-                          labelText: "Email",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.black)),
-                        ),
+                        decoration: textFieldInputDecoration,
                       ),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text(
-                      "A password confirmation link will be sent to your email address.",
+                      "A password reset link will be sent to your email address.",
                       textAlign: TextAlign.start,
                       style: TextStyle(fontSize: 12),
                     ),
@@ -96,14 +76,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       width: MediaQuery.of(context).size.width,
                       child: OutlinedButton(
                           style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.black),
+                            backgroundColor: MaterialStateProperty.all(Colors.black),
                           ),
                           onPressed: () async {
                             try {
-                              if (userEmail.contains("@")) {
+                              if (_emailTextEditingController!.text.contains("@")) {
                                 await _auth.sendPasswordResetEmail(
-                                    email: userEmail);
+                                  email: _emailTextEditingController!.text,
+                                );
                                 Navigator.pop(context);
                               }
                             } catch (error) {

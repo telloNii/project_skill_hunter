@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/homeScreenRoutes/view_card_screen.dart';
+import 'package:project_skill_hunter/screens/view_card_screen.dart';
 
 // ignore: must_be_immutable
 class HomeScreenWidget extends StatelessWidget {

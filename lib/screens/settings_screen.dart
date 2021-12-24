@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/settings/update_profile_screen.dart';
+import 'package:project_skill_hunter/screens/update_profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   static final String id = "settings screen route";

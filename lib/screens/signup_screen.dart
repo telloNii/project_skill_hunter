@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class SignUpScreen extends StatefulWidget {
   static final String id = "sign up screen route";
   @override
@@ -12,7 +14,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool obscureText = true;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
-  TextEditingController? _usernameTextControler = TextEditingController();
+  TextEditingController? _usernameTextController = TextEditingController();
   TextEditingController? _emailTextController = TextEditingController();
   TextEditingController? _passwordTextController = TextEditingController();
   @override
@@ -36,7 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
                     child: Text(
                       "Register",
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                      style: authPageHeaderTextStyle.copyWith(color: Colors.black),
                     ),
                   ),
                   Padding(
@@ -51,17 +53,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: SizedBox(
                       height: 50,
                       child: TextFormField(
-                        controller: _usernameTextControler,
-                        decoration: InputDecoration(
-                          hintText: "Please enter your Username",
-                          labelText: "UserName",
-                          labelStyle: TextStyle(color: Colors.lightBlue),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black)),
+                        controller: _usernameTextController,
+                        decoration: textFieldInputDecoration.copyWith(
+                          hintText: "Please Enter a Username",
                         ),
                       ),
                     ),
@@ -71,20 +65,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: SizedBox(
                       height: 50,
                       child: TextFormField(
-                        controller: _emailTextController,
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          hintText: "Please enter your Email",
-                          labelText: "Email",
-                          labelStyle: TextStyle(color: Colors.lightBlue),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black)),
-                        ),
-                      ),
+                          controller: _emailTextController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: textFieldInputDecoration),
                     ),
                   ),
                   Padding(
@@ -96,11 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _passwordTextController,
                           obscureText: obscureText,
                           keyboardType: TextInputType.visiblePassword,
-                          decoration: InputDecoration(
-                            hintText: "Please enter your Password",
-                            labelText: "Password",
-                            labelStyle: TextStyle(color: Colors.lightBlue),
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                          decoration: textFieldInputDecoration.copyWith(
                             suffixIcon: IconButton(
                               onPressed: () {
                                 if (obscureText == true) {
@@ -115,11 +94,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                               icon: Icon(Icons.visibility),
                             ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10), borderSide: BorderSide(color: Colors.black)),
                           ),
                         ),
                       ),
@@ -143,7 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             backgroundColor: MaterialStateProperty.all(Colors.black),
                           ),
                           onPressed: () async {
-                            if (_usernameTextControler != null &&
+                            if (_usernameTextController != null &&
                                 _emailTextController!.text.contains("@") &&
                                 _passwordTextController != null) {
                               await _auth
@@ -155,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                                   await ref.doc(_auth.currentUser!.uid.toString()).set({
                                     'email': _emailTextController!.value.text,
-                                    'userName': _usernameTextControler!.text,
+                                    'userName': _usernameTextController!.text,
                                     'isFullyRegistered': false,
                                     'isSkillRegistered': false,
                                     'image':

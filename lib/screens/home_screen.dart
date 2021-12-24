@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_skill_hunter/screens/profileScreenRoutes/profile_screen.dart';
+import 'package:project_skill_hunter/screens/profile_screen.dart';
 import 'package:project_skill_hunter/screens/search_screen.dart';
 import 'package:project_skill_hunter/services/fetch_home_screen%20_data.dart';
 
@@ -19,11 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List displayScreeen = [
-      FetchDatabaseData(),
-      SearchScreen(),
-      ProfileScreen()
-    ];
+    List displayScreeen = [FetchDatabaseData(), SearchScreen(), ProfileScreen()];
     List displayAppBar = [
       AppBar(
         elevation: 2,
