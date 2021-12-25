@@ -1,7 +1,6 @@
 name: project_skill_hunter
 description: A new Flutter project.
-
-publish_to: 'none' 
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -49,3 +48,9 @@ flutter:
         - asset: assets/fonts/SourceSansPro-BoldItalic.ttf
         - asset: assets/fonts/SourceSansPro-SemiBoldItalic.ttf
         - asset: assets/fonts/SourceSansPro-Italic.ttf
+
+
+    - family: ProximaNova
+      fonts:
+        - asset: assets/fonts/ProximaNova-Regular.otf
+
