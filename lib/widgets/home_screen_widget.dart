@@ -45,31 +45,38 @@ class HomeScreenWidget extends StatelessWidget {
               },
             ));
           },
-          child: Card(
-            elevation: 5,
-            shadowColor: Color(0x55ffffff),
-            child: Row(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      radius: 25,
-                      backgroundImage: NetworkImage(_image!),
-                    )),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _fullName!,
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      Text(_email!),
-                    ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: Colors.grey),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.shortestSide * 0.65,
+                    height: MediaQuery.of(context).size.longestSide * 0.25,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(_image!), fit: BoxFit.fill),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        )),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
+                    child: Text(
+                      _fullName!,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4),
+                    child: Text(_email!),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

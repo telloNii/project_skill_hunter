@@ -44,8 +44,12 @@ class FetchDatabaseData extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Container(
-                // height: MediaQuery.of(context).size.longestSide,
-                child: ListView(reverse: false, children: menuItemWidgets)),
+                width: MediaQuery.of(context).size.width * 0.45,
+                height: MediaQuery.of(context).size.longestSide * 0.40,
+                child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    reverse: false,
+                    children: menuItemWidgets)),
           );
         });
   }
